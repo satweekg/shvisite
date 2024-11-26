@@ -1,12 +1,10 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
-
 export const runtime = 'nodejs';
 
-
 const transporter = nodemailer.createTransport({
-  service: 'gmail',  
+  service: 'gmail',
   auth: {
     user: 'urvashi.shivinfotech@gmail.com',
     pass: 'lkjf uisq tfnm gzlh',
@@ -20,7 +18,7 @@ export async function POST(req: Request) {
 
     const mailOptions = {
       from: 'urvashi.shivinfotech@gmail.com',
-      to: 'solankinilesh5627@gmail.com', 
+      to: 'solankinilesh5627@gmail.com',
       subject: `New Contact Form Submission from ${name}`,
       html: `
         <div style="font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: 0 auto;">
@@ -33,20 +31,49 @@ export async function POST(req: Request) {
             <p style="margin: 10px 0;"><strong>Message:</strong><br>${message}</p>
           </div>
         </div>
-      `
+      `,
     };
 
     await transporter.sendMail(mailOptions);
 
-    return NextResponse.json(
+    const response = NextResponse.json(
       { success: true, message: 'Email sent successfully' },
       { status: 200 }
     );
+
+    // Add CORS headers
+    response.headers.set('Access-Control-Allow-Origin', '*');
+    response.headers.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    response.headers.set('Access-Control-Allow-Headers', 'Content-Type');
+
+    return response;
   } catch (error) {
     console.error('Failed to send email:', error);
-    return NextResponse.json(
+
+    const response = NextResponse.json(
       { success: false, message: 'Failed to send email' },
       { status: 500 }
     );
+
+    // Add CORS headers
+    response.headers.set('Access-Control-Allow-Origin', '*');
+    response.headers.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    response.headers.set('Access-Control-Allow-Headers', 'Content-Type');
+
+    return response;
   }
 }
+
+// Handle OPTIONS preflight request
+export async function OPTIONS() {
+  const response = NextResponse.json({}, { status: 204 });
+
+  // Add CORS headers
+  response.headers.set('Access-Control-Allow-Origin', '*');
+  response.headers.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  response.headers.set('Access-Control-Allow-Headers', 'Content-Type');
+
+  return response;
+}
+
+
