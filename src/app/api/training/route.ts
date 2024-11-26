@@ -11,6 +11,14 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+// Utility function to add CORS headers
+function setCorsHeaders(res: any) {
+  res.headers.set('Access-Control-Allow-Origin', 'https://shivinfotech.pages.dev');
+  res.headers.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.headers.set('Access-Control-Allow-Headers', 'Content-Type');
+  res.headers.set('Access-Control-Allow-Credentials', 'true');
+}
+
 export async function POST(req: any) {
   try {
     const body = await req.json();
@@ -70,9 +78,33 @@ export async function POST(req: any) {
 
     await transporter.sendMail(mailOptions);
 
-    return NextResponse.json({ success: true, message: 'Email sent successfully' }, { status: 200 });
+    const response = NextResponse.json(
+      { success: true, message: 'Email sent successfully' }, 
+      { status: 200 }
+    );
+
+    // Add CORS headers
+    setCorsHeaders(response);
+
+    return response;
   } catch (error) {
     console.error('Failed to send email:', error);
-    return NextResponse.json({ success: false, message: 'Failed to send email' }, { status: 500 });
+
+    const response = NextResponse.json(
+      { success: false, message: 'Failed to send email' }, 
+      { status: 500 }
+    );
+
+    // Add CORS headers
+    setCorsHeaders(response);
+
+    return response;
   }
+}
+
+// Handle OPTIONS preflight requests
+export function OPTIONS() {
+  const response = NextResponse.json(null, { status: 204 });
+  setCorsHeaders(response);
+  return response;
 }

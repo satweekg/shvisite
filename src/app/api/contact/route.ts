@@ -41,10 +41,11 @@ export async function POST(req: Request) {
       { status: 200 }
     );
 
-    // Add CORS headers
-    response.headers.set('Access-Control-Allow-Origin', '*');
+    // Update CORS to allow specific domain
+    response.headers.set('Access-Control-Allow-Origin', 'https://shivinfotech.pages.dev');
     response.headers.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
     response.headers.set('Access-Control-Allow-Headers', 'Content-Type');
+    response.headers.set('Access-Control-Allow-Credentials', 'true');
 
     return response;
   } catch (error) {
@@ -55,10 +56,11 @@ export async function POST(req: Request) {
       { status: 500 }
     );
 
-    // Add CORS headers
-    response.headers.set('Access-Control-Allow-Origin', '*');
+    // Update CORS to allow specific domain
+    response.headers.set('Access-Control-Allow-Origin', 'https://shivinfotech.pages.dev');
     response.headers.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
     response.headers.set('Access-Control-Allow-Headers', 'Content-Type');
+    response.headers.set('Access-Control-Allow-Credentials', 'true');
 
     return response;
   }
@@ -68,12 +70,11 @@ export async function POST(req: Request) {
 export async function OPTIONS() {
   const response = NextResponse.json({}, { status: 204 });
 
-  // Add CORS headers
-  response.headers.set('Access-Control-Allow-Origin', '*');
+  // Update CORS to allow specific domain
+  response.headers.set('Access-Control-Allow-Origin', 'https://shivinfotech.pages.dev');
   response.headers.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
   response.headers.set('Access-Control-Allow-Headers', 'Content-Type');
+  response.headers.set('Access-Control-Allow-Credentials', 'true');
 
   return response;
 }
-
-

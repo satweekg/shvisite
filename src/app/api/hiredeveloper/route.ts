@@ -15,9 +15,10 @@ const transporter = nodemailer.createTransport({
 
 // Utility function to add CORS headers
 function setCorsHeaders(res:any) {
-  res.headers.set('Access-Control-Allow-Origin', '*'); // Adjust the domain for production
+  res.headers.set('Access-Control-Allow-Origin', 'https://shivinfotech.pages.dev'); // Specific domain for production
   res.headers.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.headers.set('Access-Control-Allow-Headers', 'Content-Type');
+  res.headers.set('Access-Control-Allow-Credentials', 'true');
 }
 
 export async function POST(req:any) {
