@@ -1,0 +1,46 @@
+.cursorTrail {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9999;
+  }
+  
+  .cursorSegment {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background: linear-gradient(45deg, #ff7eb3, #42a5f5, #7e57c2);
+    border-radius: 50%;
+    opacity: 0.7;
+    transform: translate(-50%, -50%);
+    animation: cursorColorChange 2s infinite;
+  }
+  
+  @keyframes cursorColorChange {
+    0% {
+      background: #ff7eb3;
+    }
+    50% {
+      background: #42a5f5;
+    }
+    100% {
+      background: #7e57c2;
+    }
+  }
+  
+  .cursorSegment:nth-child(1) {
+    animation-delay: 0.1s;
+    opacity: 0.6;
+  }
+  
+  .cursorSegment:nth-child(2) {
+    animation-delay: 0.2s;
+    opacity: 0.4;
+  }
+  
+  .cursorSegment:nth-child(3) {
+    animation-delay: 0.3s;
+    opacity: 0.2;
+  }
+  
